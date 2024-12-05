@@ -1,4 +1,3 @@
-// pages/index.page.tsx
 import { TodoPage } from 'modules/todo/containers/TodoPage';
 
 const Home = () => {
