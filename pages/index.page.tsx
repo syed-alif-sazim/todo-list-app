@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react';
+// pages/index.page.tsx
+import { TodoPage } from 'modules/todo/containers/TodoPage';
 
-export default function Home() {
+const Home = () => {
+  return <TodoPage />;
+};
 
-  return (
-    <div className="flex items-start justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md mt-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">To-Do List</h1>
-      </div>
-    </div>
-  );
-}
+export default Home;
