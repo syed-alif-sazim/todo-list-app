@@ -1,4 +1,4 @@
-import { TodoPage } from 'modules/todo/containers/TodoPage';
+import { TodoPage } from '../modules/todo/containers/TodoPage';
 
 const Home = () => {
   return <TodoPage />;
