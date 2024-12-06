@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ITaskItemProps } from './TaskItem.interfaces';
 
 
-export const TaskItem: React.FC<ITaskItemProps> = ({ task }) => {
+export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete }) => {
 
   return (
     <li className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
@@ -11,6 +11,14 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task }) => {
         >
           {task.description}
         </span>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => onDelete(task.id)}
+            className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+          >
+          Delete
+        </button>
+      </div>
     </li>
   );
 };
