@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { TaskInput } from '../../components/TaskInput';
 import { TaskList } from '../../components/TaskList';
 import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '../../utils';
 
@@ -20,10 +21,24 @@ export const TodoPage = () => {
       }
     }, []);
 
+    useEffect(() => {
+      saveTasksToLocalStorage(tasks);
+    }, [tasks]);
+  
+    const handleAddTask = (task: string) => {
+      const newTaskObj = {
+        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
+        description: task,
+        isCompleted: false,
+      };
+      setTasks([...tasks, newTaskObj]);
+    };
+
     return (
     <div className="flex items-start justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md mt-8">
             <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">To-Do List</h1>
+                <TaskInput onAddTask={handleAddTask} />
                 <TaskList tasks={tasks}/>
         </div>
     </div>
