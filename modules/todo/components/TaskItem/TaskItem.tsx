@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ITaskItemProps } from './TaskItem.interfaces';
 
 
-export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit }) => {
+export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState(task.description);
 
@@ -15,6 +15,12 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit }) =
 
   return (
     <li className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
+      <input
+        type="checkbox"
+        checked={task.isCompleted}
+        onChange={() => onToggleComplete(task.id)}
+        className="mr-4"
+      />
       {isEditing ? (
         <input
           type="text"
