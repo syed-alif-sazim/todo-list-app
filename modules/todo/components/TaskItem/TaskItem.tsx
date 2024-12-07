@@ -9,7 +9,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit }) =
   const handleSaveEdit = () => {
     if (editedDescription.trim()) {
       onEdit({ id: task.id, description: editedDescription });
-      setIsEditing(false); // Hide the text field after saving
+      setIsEditing(false); 
     }
   };
 
