@@ -16,7 +16,7 @@ export const TodoPage = () => {
           { id: 2, description: 'Build a To-Do App', isCompleted: true },
         ];
         setTasks(dummyTasks);
-        saveTasksToLocalStorage(dummyTasks);  // Save dummy tasks to local storage
+        saveTasksToLocalStorage(dummyTasks);  
       }
     }, []);
 
