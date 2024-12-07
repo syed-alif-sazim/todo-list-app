@@ -40,8 +40,8 @@ export const TodoPage = () => {
 
     const handleEditTask = (task: { id: number; description: string }) => {
       setTasks(
-        tasks.map(t =>
-          t.id === task.id ? { ...t, description: task.description } : t
+        tasks.map(existingTask =>
+          existingTask.id === task.id ? { ...existingTask, description: task.description } : existingTask
         )
       );
     };
