@@ -6,6 +6,15 @@ import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '../../utils'
 
 export const TodoPage = () => {
     const [tasks, setTasks] = useState<{ id: number; description: string; isCompleted: boolean }[]>([]);
+  
+    const handleAddTask = (task: string) => {
+      const newTaskObj = {
+        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
+        description: task,
+        isCompleted: false,
+      };
+      setTasks([...tasks, newTaskObj]);
+    };
 
     useEffect(() => {
       const storedTasks = loadTasksFromLocalStorage();
@@ -24,15 +33,6 @@ export const TodoPage = () => {
     useEffect(() => {
       saveTasksToLocalStorage(tasks);
     }, [tasks]);
-  
-    const handleAddTask = (task: string) => {
-      const newTaskObj = {
-        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
-        description: task,
-        isCompleted: false,
-      };
-      setTasks([...tasks, newTaskObj]);
-    };
 
     return (
     <div className="flex items-start justify-center min-h-screen bg-gray-100">
