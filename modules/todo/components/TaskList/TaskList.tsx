@@ -1,7 +1,7 @@
 import { TaskItem } from '../TaskItem';
 import { ITaskListProps } from './TaskList.interfaces';
 
-export const TaskList: React.FC<ITaskListProps> = ({ tasks, onDelete}) => {
+export const TaskList: React.FC<ITaskListProps> = ({ tasks, onDelete, onEdit, onToggleComplete}) => {
   return (
     <ul className="space-y-4">
       {tasks.map(task => (
@@ -9,6 +9,8 @@ export const TaskList: React.FC<ITaskListProps> = ({ tasks, onDelete}) => {
           key={task.id}
           task={task}
           onDelete={onDelete}
+          onEdit={onEdit}
+          onToggleComplete={onToggleComplete}
         />
       ))}
     </ul>
