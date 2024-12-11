@@ -31,6 +31,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
       ) : (
         <span
           className={`cursor-pointer text-gray-700 ${task.isCompleted ? 'line-through text-gray-400' : ''}`}
+          style={{ whiteSpace: 'pre-wrap' }}
         >
           {task.description}
         </span>
