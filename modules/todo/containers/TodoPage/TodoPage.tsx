@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { TaskInput } from '../../components/TaskInput';
 import { TaskList } from '../../components/TaskList';
 import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '../../utils';
+import { z } from 'zod';
 
 
 export const TodoPage = () => {
     const [tasks, setTasks] = useState<{ id: number; description: string; isCompleted: boolean }[]>([]);
-  
+
     const handleAddTask = (task: string) => {
       const newTaskObj = {
         id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,

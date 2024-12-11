@@ -7,17 +7,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { TaskSchema } from './TaskItem.helpers'; 
+import { z } from 'zod';
 
 
 export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState(task.description);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null); 
 
   const handleSaveEdit = () => {
-    if (editedDescription.trim()) {
+    try {
+      TaskSchema.parse(editedDescription);
       onEdit({ id: task.id, description: editedDescription });
-      setIsEditing(false); 
+      setIsEditing(false);
+      setError(null);
+    } catch (e) {
+      if (e instanceof z.ZodError) {
+        const errorMessage = e.errors.map((err) => err.message).join(', ');
+        setError(errorMessage);
+      }
     }
   };
 
@@ -35,12 +45,17 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
         className="mr-4"
       />
       {isEditing ? (
-        <input
-          type="text"
-          value={editedDescription}
-          onChange={(e) => setEditedDescription(e.target.value)}
-          className="mr-4 p-1 border border-gray-300 rounded"
-        />
+        <div className="flex flex-col">
+          <input
+            type="text"
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
+            className="mr-4 p-1 border border-gray-300 rounded"
+          />
+          {error && (
+            <div className="mt-2 text-red-500 text-sm">{error}</div> // Display validation errors
+          )}
+      </div>
       ) : (
         <span
           className={`cursor-pointer text-gray-700 ${task.isCompleted ? 'line-through text-gray-400' : ''}`}
@@ -98,7 +113,6 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
             </button>
           )
         )}
-
       </div>
     </li>
   );
