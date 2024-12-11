@@ -21,7 +21,7 @@ export const TaskInput: React.FC<ITaskInputProps> = ({ onAddTask }) => {
       />
       <button
         onClick={handleAddTask}
-        className="ml-2 bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600"
+        className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600"
       >
         Add Task
       </button>
