@@ -1,10 +1,18 @@
 import { useState } from 'react';
 import { ITaskItemProps } from './TaskItem.interfaces';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 
 export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState(task.description);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleSaveEdit = () => {
     if (editedDescription.trim()) {
@@ -12,6 +20,11 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
       setIsEditing(false); 
     }
   };
+
+  const truncateDescription = (description: string, maxLength: number) => {
+    if (description.length <= maxLength) return description;
+    return `${description.slice(0, maxLength)}... `;
+  }; 
 
   return (
     <li className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
@@ -38,7 +51,27 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
             flexGrow: 1,
           }}
         >
-          {task.description}
+          {truncateDescription(task.description, 100)}
+          {task.description.length > 100 && (
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <button className="text-blue-500 hover:underline">Read more</button>
+              </DialogTrigger>
+              <DialogContent
+                style={{
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
+                  overflowWrap: 'break-word',
+                  maxHeight: '400px',
+                  overflowY: 'auto', 
+                }}>
+                <DialogHeader>
+                  <DialogTitle>Task Description</DialogTitle>
+                </DialogHeader>
+                <p>{task.description}</p>
+              </DialogContent>
+            </Dialog>
+          )}
         </span>
       )}
       <div className="flex items-center space-x-2">
