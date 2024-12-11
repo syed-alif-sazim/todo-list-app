@@ -81,21 +81,24 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
         >
           Delete
         </button>
-        {isEditing ? (
-          <button
-            onClick={handleSaveEdit}
-            className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
-          >
-            Save
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-          >
-            Edit
-          </button>
+        {!task.isCompleted && (
+          isEditing ? (
+            <button
+              onClick={handleSaveEdit}
+              className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            >
+              Edit
+            </button>
+          )
         )}
+
       </div>
     </li>
   );
