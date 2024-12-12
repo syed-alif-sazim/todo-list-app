@@ -3,10 +3,11 @@ import { TaskInput } from '../../components/TaskInput';
 import { TaskList } from '../../components/TaskList';
 import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '../../utils';
 import { z } from 'zod';
+import { ITask } from './TodoPage.interfaces';
 
 
 export const TodoPage = () => {
-    const [tasks, setTasks] = useState<{ id: number; description: string; isCompleted: boolean }[]>([]);
+    const [tasks, setTasks] = useState<ITask[]>([]);
 
     const handleAddTask = (task: string) => {
       const newTaskObj = {
