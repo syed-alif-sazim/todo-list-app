@@ -54,28 +54,14 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
       </div>
       ) : (
         <span
-          className={`cursor-pointer text-gray-700 ${task.isCompleted ? 'line-through text-gray-400' : ''}`}
-          style={{
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-            flexGrow: 1,
-          }}
-        >
+          className={`whitespace-pre-wrap break-words overflow-clip flex-grow break-all cursor-pointer text-gray-700 ${task.isCompleted ? 'line-through text-gray-400' : ''}`}>
           {truncateDescription(task.description)}
           {task.description.length > 100 && (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <button className="text-blue-500 hover:underline">Read more</button>
               </DialogTrigger>
-              <DialogContent
-                style={{
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-word',
-                  overflowWrap: 'break-word',
-                  maxHeight: '400px',
-                  overflowY: 'auto', 
-                }}>
+              <DialogContent className="whitespace-pre-wrap break-words break-all overflow-clip max-h-[400px] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Task Description</DialogTitle>
                 </DialogHeader>
