@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { TaskSchema } from './TaskItem.helpers'; 
 import { z } from 'zod';
+import { truncateDescription } from './TaskItem.helpers';
 
 
 export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
@@ -30,11 +31,6 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
       }
     }
   };
-
-  const truncateDescription = (description: string, maxLength: number) => {
-    if (description.length <= maxLength) return description;
-    return `${description.slice(0, maxLength)}... `;
-  }; 
 
   return (
     <li className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
@@ -66,7 +62,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
             flexGrow: 1,
           }}
         >
-          {truncateDescription(task.description, 100)}
+          {truncateDescription(task.description)}
           {task.description.length > 100 && (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
