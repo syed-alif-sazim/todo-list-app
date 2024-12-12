@@ -49,7 +49,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
             className="mr-4 p-1 border border-gray-300 rounded"
           />
           {error && (
-            <div className="mt-2 text-red-500 text-sm">{error}</div> // Display validation errors
+            <div className="mt-2 text-red-500 text-sm">{error}</div> 
           )}
       </div>
       ) : (
