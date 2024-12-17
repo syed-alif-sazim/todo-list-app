@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { TaskInput } from '../../components/TaskInput';
 import { TaskList } from '../../components/TaskList';
-import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '../../utils';
 import { z } from 'zod';
 import { ITask } from './TodoPage.interfaces';
+import { fetchTasks } from './TodoPage.helpers';
 
 
 export const TodoPage = () => {
@@ -19,22 +19,8 @@ export const TodoPage = () => {
     };
 
     useEffect(() => {
-      const storedTasks = loadTasksFromLocalStorage();
-      if (storedTasks && storedTasks.length > 0) {
-        setTasks(storedTasks);
-      } else {
-        const dummyTasks = [
-          { id: 1, description: 'Read Next.js 13 docs', isCompleted: false },
-          { id: 2, description: 'Build a To-Do App', isCompleted: true },
-        ];
-        setTasks(dummyTasks);
-        saveTasksToLocalStorage(dummyTasks);  
-      }
+      fetchTasks(setTasks)
     }, []);
-
-    useEffect(() => {
-      saveTasksToLocalStorage(tasks);
-    }, [tasks]);
 
     const handleDeleteTask = (id: number) => {
       setTasks(tasks.filter(task => task.id !== id));
