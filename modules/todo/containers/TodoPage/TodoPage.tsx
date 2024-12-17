@@ -27,8 +27,13 @@ export const TodoPage = () => {
       fetchTasks(setTasks)
     }, []);
 
-    const handleDeleteTask = (id: number) => {
-      setTasks(tasks.filter(task => task.id !== id));
+    const handleDeleteTask = async (id: number) => {
+      try {
+        await axios.delete(`${process.env.NEXT_PUBLIC_BE_URL}/tasks/${id}`);
+        fetchTasks(setTasks)
+      } catch (error) {
+        console.error('Error deleting task:', error);
+      }
     };
 
     const handleEditTask = (task: { id: number; description: string }) => {
