@@ -36,7 +36,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
     <li className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
       <input
         type="checkbox"
-        checked={task.isCompleted}
+        checked={task.is_completed}
         onChange={() => onToggleComplete(task.id)}
         className="mr-4"
       />
@@ -54,7 +54,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
       </div>
       ) : (
         <span
-          className={`whitespace-pre-wrap break-words overflow-clip flex-grow break-all cursor-pointer text-gray-700 ${task.isCompleted ? 'line-through text-gray-400' : ''}`}>
+          className={`whitespace-pre-wrap break-words overflow-clip flex-grow break-all cursor-pointer text-gray-700 ${task.is_completed ? 'line-through text-gray-400' : ''}`}>
           {truncateDescription(task.description)}
           {task.description.length > 100 && (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -78,7 +78,7 @@ export const TaskItem: React.FC<ITaskItemProps> = ({ task, onDelete, onEdit, onT
         >
           Delete
         </button>
-        {!task.isCompleted && (
+        {!task.is_completed && (
           isEditing ? (
             <button
               onClick={handleSaveEdit}
