@@ -4,18 +4,23 @@ import { TaskList } from '../../components/TaskList';
 import { z } from 'zod';
 import { ITask } from './TodoPage.interfaces';
 import { fetchTasks } from './TodoPage.helpers';
+import axios from 'axios';
 
 
 export const TodoPage = () => {
     const [tasks, setTasks] = useState<ITask[]>([]);
 
-    const handleAddTask = (task: string) => {
+    const handleAddTask = async (task: string) => {
       const newTaskObj = {
-        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
         description: task,
         isCompleted: false,
       };
-      setTasks([...tasks, newTaskObj]);
+      try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BE_URL}/tasks`, newTaskObj);
+        fetchTasks(setTasks)
+      } catch (error) {
+        console.error('Error adding task:', error);
+      }
     };
 
     useEffect(() => {
