@@ -1,5 +1,5 @@
 export interface ITaskItemProps {
-    task: { id: number; description: string; isCompleted: boolean };
+    task: { id: number; description: string; is_completed: boolean };
     onDelete: (id: number) => void;
     onEdit: (task: { id: number; description: string }) => void;
     onToggleComplete: (id: number) => void;
