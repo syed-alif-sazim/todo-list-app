@@ -36,12 +36,13 @@ export const TodoPage = () => {
       }
     };
 
-    const handleEditTask = (task: { id: number; description: string }) => {
-      setTasks(
-        tasks.map(existingTask =>
-          existingTask.id === task.id ? { ...existingTask, description: task.description } : existingTask
-        )
-      );
+    const handleEditTask = async (task: { id: number; description: string }) => {
+      try {
+        const response = await axios.put(`${process.env.NEXT_PUBLIC_BE_URL}/tasks/${task.id}`, { description: task.description });
+        fetchTasks(setTasks)
+      } catch (error) {
+        console.error('Error editing task:', error);
+      }
     };
 
     const handleToggleComplete = (taskId: number) => {
